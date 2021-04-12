@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GSBApplication</string>
+    <string-array name="TypeForfait">
+        <item>   </item>
+        <item>Forfait etape</item>
+        <item>Forfait Km</item>
+        <item>Forfait Hotel</item>
+        <item>Forfait Restaurant </item>
+    </string-array>
+</resources>
