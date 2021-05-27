@@ -62,6 +62,17 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    /**
+     *insere dans la base de donnée les elements passés en parametre
+     *
+     * @param libelle1
+     * @param typeFrais1
+     * @param quantite1
+     * @param montant1
+     * @param date1
+     *
+     * @return null
+     */
     public boolean insertData(String typeFrais1, Integer quantite1, String date1, double montant1, String libelle1) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -76,6 +87,14 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
         return result != -1;
 
     }
+
+    /**
+     * renvoie tous les frais dont la date est rentrée en parametre
+     *
+     * @param inputText
+     * @return mCursor
+     * @throws SQLException
+     */
 
     public Cursor fetchSQLhelper(String inputText) throws SQLException {
         Log.w(TAG, inputText);
@@ -93,6 +112,12 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * renvoie tous les frais
+     *
+     * @return mCursor
+     */
+
     public Cursor fetchAllsynthese() {
 
         Cursor mCursor = mDb.query(DB_TABLE, new String[]{"rowid _id", ID, LIBELLE, MONTANT,
@@ -104,16 +129,11 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
         return mCursor;
     }
 
-
-    public Cursor viewData() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select * from " + DB_TABLE;
-        Cursor pointeur = db.rawQuery(query, null);
-        return pointeur;
-
-    }
-
-
+    /**
+     * supprime des info en fonction de l'id renseigne
+     * @param ID
+     * @return
+     */
     public boolean deleteData(Integer ID) {
         SQLiteDatabase db = this.getWritableDatabase();
 

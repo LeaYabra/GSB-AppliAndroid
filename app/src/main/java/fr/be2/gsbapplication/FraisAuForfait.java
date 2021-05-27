@@ -14,6 +14,7 @@ import java.util.Calendar;
 
 
 public class FraisAuForfait extends Menuprincipal {
+    //declaration des variables
     SQLhelper bdd;
     Spinner typefrais;
     EditText quantite;
@@ -29,6 +30,7 @@ public class FraisAuForfait extends Menuprincipal {
     //declaration d'un tableau avec les libelles des frais forfaits
     //String[] tabType = new String[]{" ", "Forfait etape", "Frais KM", "Nuitee hotel", "Repas restaurant"};
 
+    //constructeur
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +43,23 @@ public class FraisAuForfait extends Menuprincipal {
        
     }
 
-
+    /**
+     * Ajoute les valeurs saisies à la base de donnée;
+     * La fonction verifie dans un premier temps si le visiteur a bien rempli le champ quantité
+     * Elle calcule le montant du frais (produit de la quantité par le montant fixé)
+     * Si la fonction a bien enregistré les frais dans la base de donées, elle affiche un message de succés
+     *
+     * @param
+     *
+     * @return null
+     */
     public void save_DATA(View view) {
-
-
-
 
         if
         (typefrais.getSelectedItem().toString().trim().length() == 0) { // si rien dans Quantite
-
-
             afficherMessage("ERREUR", "aucun type n'a été saisie");
-            //return;
 
-            } else if
+        } else if
             (quantite.getText().toString().trim().length() == 0) { // si rien dans Quantite
              afficherMessage("ERREUR", "aucune quantité n'a été saisie");
             //return;
@@ -77,7 +82,7 @@ public class FraisAuForfait extends Menuprincipal {
                 dateFrais.setText("");
                 quantite.setText("");
                 typefrais.setSelection(0);
-                Toast.makeText(FraisAuForfait.this, "Frais enregistré", Toast.LENGTH_LONG).show();
+                Toast.makeText(FraisAuForfait.this, "Frais enregistré avec succes", Toast.LENGTH_LONG).show();
 
             }
 
@@ -86,6 +91,13 @@ public class FraisAuForfait extends Menuprincipal {
 
     }
 
+    /**
+     *permet d'avoir un tableau de date pour saisir une date , mise a jour a la date du jour
+     *
+     * @param view
+     *
+     * @return null
+     */
     public void picker(View view)
     {
         picker = new DatePickerDialog(FraisAuForfait.this,
@@ -98,6 +110,13 @@ public class FraisAuForfait extends Menuprincipal {
         picker.show();
     }
 
+    /**
+     * Effectue un retour en arrière soit arrête l'activité en cours
+     *
+     * @param view
+     *
+     * @return null
+     */
 
     public void clique_retour (View view){
             finish();

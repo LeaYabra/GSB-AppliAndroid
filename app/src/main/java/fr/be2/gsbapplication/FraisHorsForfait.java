@@ -35,10 +35,18 @@ public class FraisHorsForfait extends Menuprincipal {
 
     }
 
+    /**
+     * Ajoute les valeurs saisies à la base de donnée;
+     * La fonction verifie dans un premier temps si le visiteur a bien rempli les champs
+     * Si la fonction a bien enregistré les frais dans la base de donées, elle affiche un message de succés
+     *
+     * @param view
+     */
     public void save_DATA(View view) {
 
         if (libelle.getText().toString().trim().length() == 0) { // si rien dans Quantite
-            afficherMessage("ERREUR", "aucun libelle n'a été renseigné");
+            afficherMessage("ERREUR", "aucun libelle n'a " +
+                    "été renseigné");
             //return;
 
 
@@ -62,14 +70,20 @@ public class FraisHorsForfait extends Menuprincipal {
                 libelle.setText("");
                 montant.setText("");
                 date.setText("");
-                Toast.makeText(FraisHorsForfait.this, "Frais enregistré", Toast.LENGTH_LONG).show();
+                Toast.makeText(FraisHorsForfait.this, "Frais enregistré avec succes", Toast.LENGTH_LONG).show();
 
             }
         }
 
     }
 
-
+/**
+ * permet d'avoir un tableau de dates pour saisir une date, mise a jour a la date du jour
+ *
+ * @param view
+ *
+ * @return null
+ */
 public void picker(View view)
     {
         picker = new DatePickerDialog(FraisHorsForfait.this,
@@ -83,7 +97,13 @@ public void picker(View view)
     }
 
 
-
+    /**
+     * Effectue un retour en arrière soit arrête l'activité en cours
+     *
+     * @param view
+     *
+     * @return null
+     */
     public void clique_retour(View view) {
         finish();
 

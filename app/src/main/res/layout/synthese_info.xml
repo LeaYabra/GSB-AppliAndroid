@@ -122,20 +122,18 @@
         android:layout_marginBottom="-24dp"
         android:text="TextView" />
 
-
-    <ImageButton
+    <ImageView
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView6"
-
         android:layout_alignLeft="@+id/datesaisie"
         android:layout_marginLeft="156dp"
         android:layout_marginBottom="24dp"
-
         android:layout_weight="1"
         android:baselineAlignBottom="false"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
 
 </RelativeLayout>
+

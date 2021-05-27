@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-
+import static java.lang.Integer.parseInt;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SyntheseDuMois extends AppCompatActivity {
@@ -20,7 +20,7 @@ public class SyntheseDuMois extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_synthese_du_mois);
-        setContentView(R.layout.activity_synthese_du_mois);
+
 
             dbHelper = new SQLhelper(this);
             dbHelper.open();
@@ -57,6 +57,7 @@ public class SyntheseDuMois extends AppCompatActivity {
                     R.id.datesaisie,
 
 
+
             };
 
 //On créer l'adaptateur à l'aide du curseur pointant sur les données souhaitées  ainsi que les informations de mise en page
@@ -71,34 +72,40 @@ public class SyntheseDuMois extends AppCompatActivity {
             ListView listView = (ListView) findViewById(R.id.listView1);
             // Attribuer l’adapter au ListView
             listView.setAdapter(dataAdapter);
-
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> listView, View view,
                                         int position, long id) {
-                    long boutonID = view.getId();
+                    // On obtient le curseur, positionne sur la ligne correspondante dans le jeu de résultats
+                    Cursor cursor = (Cursor) listView.getItemAtPosition(position);
+
+                    // On obtient la Capital du pays
+                    String myId =
+                            cursor.getString(0);
                     Toast.makeText(getApplicationContext(),
-                            "" + boutonID, Toast.LENGTH_SHORT).show();
-                    if (boutonID == R.id.delete) {
-                        //On obtient le curseur, positionne sur la ligne correspondante dans le jeu de résultats
-                        Cursor cursor = (Cursor) listView.getItemAtPosition(position);
+                            myId, Toast.LENGTH_SHORT).show();
 
-                        String myid =
-                                cursor.getString(cursor.getColumnIndexOrThrow("ID"));
-                        Toast.makeText(getApplicationContext(),
-                                myid, Toast.LENGTH_SHORT).show();
-                        Integer myid1 = Integer.parseInt(myid.toString());
-                        dbHelper.deleteData(myid1);
-                        displayListView();
-
-                    }
+                    dbHelper.deleteData(parseInt(myId));
+                    ;
                 }
-
             });
-
-
         }
 
+    /**
+     * affiche un message apres la suppression d'un frais
+     * @param v
+     */
+    public void doDeleteOnClick(View v) {
+        Toast.makeText(v.getContext(),"You clicked the DELETE button for id " + ((String) v.getTag()), Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Effectue un retour en arrière soit arrête l'activité en cours
+     *
+     * @param view
+     *
+     * @return null
+     */
 
         public void clic_retour(View view) {
         finish();

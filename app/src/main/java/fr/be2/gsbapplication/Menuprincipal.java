@@ -14,6 +14,14 @@ public class Menuprincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuprincipal);
     }
+    /**
+     * affiche un message contenant un titre et un message passés en paramètres
+     *
+     * @param titre
+     * @param message
+     *
+     * @return null
+     */
 
     public void afficherMessage(String titre ,String message){
         AlertDialog.Builder Builder = new AlertDialog.Builder(this) ;
