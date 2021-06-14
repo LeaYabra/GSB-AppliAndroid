@@ -76,10 +76,10 @@ public class SyntheseDuMois extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> listView, View view,
                                         int position, long id) {
-                    // On obtient le curseur, positionne sur la ligne correspondante dans le jeu de résultats
+                    // On obtient le curseur, positionne sur la ligne correspondante ,la position
                     Cursor cursor = (Cursor) listView.getItemAtPosition(position);
 
-                    // On obtient la Capital du pays
+                    // On obtient l'id du frais
                     String myId =
                             cursor.getString(0);
                     Toast.makeText(getApplicationContext(),
@@ -89,6 +89,10 @@ public class SyntheseDuMois extends AppCompatActivity {
                     ;
                 }
             });
+
+
+
+
         }
 
     /**

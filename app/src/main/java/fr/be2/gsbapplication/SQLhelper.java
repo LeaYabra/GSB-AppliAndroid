@@ -6,11 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.util.Date;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,6 +25,7 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
     private SQLiteDatabase mDb;
     private Context monContexte;
 
+    //constructeur
     public SQLhelper(Context context) {
 
         super(context, DB_NAME, null, 1);
@@ -56,6 +53,7 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
         Log.w(TAG, CREATE_TABLE);
     }
 
+    // mise a jour la bdd si version evolue
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
@@ -63,14 +61,13 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
     }
 
     /**
-     *insere dans la base de donnée les elements passés en parametre
+     * insere dans la base de donnée les elements passés en parametre
      *
      * @param libelle1
      * @param typeFrais1
      * @param quantite1
      * @param montant1
      * @param date1
-     *
      * @return null
      */
     public boolean insertData(String typeFrais1, Integer quantite1, String date1, double montant1, String libelle1) {
@@ -88,40 +85,31 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
 
     }
 
-    /**
-     * renvoie tous les frais dont la date est rentrée en parametre
-     *
-     * @param inputText
-     * @return mCursor
-     * @throws SQLException
-     */
+    public long createlist(String libelle, String quantite,
+                           String montant, String date, String datesaisie) {
 
-    public Cursor fetchSQLhelper(String inputText) throws SQLException {
-        Log.w(TAG, inputText);
-        Cursor mCursor = null;
-
-        mCursor = mDb.query(true, CREATE_TABLE, new String[]{ID, LIBELLE, QUANTITE, MONTANT,
-                        DATE, DATESAISIE},
-                ID + " like '%" + inputText + "%'", null,
-                null, null, null, null);
-
-        if (mCursor != null) {
-            mCursor.moveToFirst();
-        }
-        return mCursor;
-
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(LIBELLE, libelle);
+        initialValues.put(QUANTITE, quantite);
+        initialValues.put(MONTANT, montant);
+        initialValues.put(DATE, date);
+        initialValues.put(DATESAISIE, datesaisie);
+        return mDb.insert(DB_TABLE, null, initialValues);
     }
 
     /**
-     * renvoie tous les frais
+     * renvoie tous les frais dont la date est rentrée en parametre
      *
      * @return mCursor
      */
 
+
     public Cursor fetchAllsynthese() {
 
-        Cursor mCursor = mDb.query(DB_TABLE, new String[]{"rowid _id", ID, LIBELLE, MONTANT,
-                DATE, QUANTITE, DATESAISIE}, null, null, null, null, null, null);
+        Cursor mCursor = mDb.query(DB_TABLE, new String[]{"rowid _id",
+                        ID, LIBELLE, MONTANT, DATE, QUANTITE, DATESAISIE},
+                null, null, null, null, null, null);
+
 
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -131,6 +119,7 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
 
     /**
      * supprime des info en fonction de l'id renseigne
+     *
      * @param ID
      * @return
      */
@@ -144,4 +133,34 @@ public class SQLhelper<AUTOINCREMENT> extends SQLiteOpenHelper {
     }
 
 
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

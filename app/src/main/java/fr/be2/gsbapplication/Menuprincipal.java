@@ -2,10 +2,10 @@ package fr.be2.gsbapplication;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.view.View;
-import android.os.Bundle;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 
 public class Menuprincipal extends AppCompatActivity {
 
@@ -30,7 +30,6 @@ public class Menuprincipal extends AppCompatActivity {
         Builder.setMessage(message) ;
         Builder.show() ;
     }
-
     /**
      * Méthode clic bouton menu 1
      * appliquée sur l'objet "frais hors forfait"
@@ -53,17 +52,12 @@ public class Menuprincipal extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),SyntheseDuMois.class);
             startActivity(intent);
         }
-        if (view.getId()==R.id.btnenvoi) {
-            Intent intent = new Intent(getApplicationContext(),EnvoiDesDonnees.class);
+
+
+        if (view.getId()==R.id.btnreservation) {
+            Intent intent = new Intent(getApplicationContext(),RerservationHotel.class);
             startActivity(intent);
         }
 
-            if (view.getId() == R.id.btnparametres) {
-                Intent intent = new Intent(getApplicationContext(),Parametres.class);
-                startActivity(intent);
-            }
-
-
     }
-    }
-
+}

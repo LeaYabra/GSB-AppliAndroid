@@ -6,42 +6,43 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Spinner;
 
 import java.util.Calendar;
 
-
-public class FraisAuForfait extends Menuprincipal{
-    //declaration des variables
+public class RerservationHotel extends Menuprincipal{
     SQLhelper bdd;
-    Spinner typefrais;
+    Spinner typeHotel;
     EditText quantite;
-    TextView dateFrais;
+    TextView date;
     DatePickerDialog picker;
     Calendar calendrier = Calendar.getInstance();
     int aaaa = calendrier.get(Calendar.YEAR);
     int mm = calendrier.get(Calendar.MONTH);
     int jj = calendrier.get(Calendar.DAY_OF_MONTH);
 
-    //Tableau montant des frais au forfait
-    Double MontantFrais[] = new Double[]{0.0, 110.00, 0.62, 80.00, 25.00, 30.00};
-    //declaration d'un tableau avec les libelles des frais forfaits
-    //String[] tabType = new String[]{" ", "Forfait etape", "Frais KM", "Nuitee hotel", "Repas restaurant"};
-
-    //constructeur
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_frais_au_forfait);
+        setContentView(R.layout.activity_rerservation_hotel);
+
         bdd = new SQLhelper(this);
-        typefrais = findViewById(R.id.type);
+        typeHotel = findViewById(R.id.type);
         quantite = findViewById(R.id.quantite);
-        dateFrais = findViewById(R.id.date);
-       
+        date = findViewById(R.id.date);
+
     }
+
+
+
+    Double MontantFrais[] = new Double[]{0.0, 110.00, 0.62, 80.00, 25.00};
+
+
+
+
 
     /**
      * Ajoute les valeurs saisies à la base de donnée;
@@ -56,33 +57,33 @@ public class FraisAuForfait extends Menuprincipal{
     public void save_DATA(View view) {
 
         if
-            (typefrais.getSelectedItem().toString().trim().length() == 0) { // si rien dans Quantite
-                afficherMessage("ERREUR", "aucun type n'a été saisie");
+        (typeHotel.getSelectedItem().toString().trim().length() == 0) { // si rien dans Quantite
+            afficherMessage("ERREUR", "aucun hotel n'a été saisie");
 
         } else if
-            (quantite.getText().toString().trim().length() == 0) { // si rien dans Quantite
-             afficherMessage("ERREUR", "aucune quantité n'a été saisie");
+        (quantite.getText().toString().trim().length() == 0) { // si rien dans Quantite
+            afficherMessage("ERREUR", "aucune quantité n'a été saisie");
             //return;
 
 
-            } else if
-            (dateFrais.getText().toString().trim().length() == 0) {
+        } else if
+        (date.getText().toString().trim().length() == 0) {
 
-                afficherMessage("ERREUR", "aucune date n'a été saisie");
-                //return;
+            afficherMessage("ERREUR", "aucune date n'a été saisie");
+            //return;
 
         } else{
-            String Date1 = dateFrais.getText().toString();
-            String TypeFrais1 = typefrais.getSelectedItem().toString();
+            String Date1 = date.getText().toString();
+            String TypeFrais1 = typeHotel.getSelectedItem().toString();
             Integer Quantite1 = Integer.parseInt("0"+quantite.getText().toString());
-            int position = typefrais.getSelectedItemPosition();
+            int position = typeHotel.getSelectedItemPosition();
 
             Double Tarif = Quantite1 * MontantFrais[position];
             if (bdd.insertData(TypeFrais1, Quantite1, Date1, Tarif, TypeFrais1)) {
-                dateFrais.setText("");
+                date.setText("");
                 quantite.setText("");
-                typefrais.setSelection(0);
-                Toast.makeText(FraisAuForfait.this, "Frais enregistré avec succes", Toast.LENGTH_LONG).show();
+                typeHotel.setSelection(0);
+                Toast.makeText(RerservationHotel.this, "reservation enregistré avec succes", Toast.LENGTH_LONG).show();
 
             }
 
@@ -100,11 +101,11 @@ public class FraisAuForfait extends Menuprincipal{
      */
     public void picker(View view)
     {
-        picker = new DatePickerDialog(FraisAuForfait.this,
+        picker = new DatePickerDialog(RerservationHotel.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        dateFrais.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                     }
                 },aaaa,mm,jj);
         picker.show();
@@ -119,8 +120,9 @@ public class FraisAuForfait extends Menuprincipal{
      */
 
     public void clique_retour (View view){
-            finish();
-        }
+        finish();
+    }
 
 
 }
+
